@@ -1,0 +1,366 @@
+\documentclass[12pt,letterpaper,final]{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+%\usepackage{Sweave}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{verbatim}
+\usepackage{textcomp}
+\usepackage{wasysym}
+
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.15in}
+%\setlength{\topmargin}{0.5in}
+\setlength{\textheight}{22cm}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\parskip}{5pt plus 2pt minus 3pt}
+
+\def\thefootnote{\fnsymbol{footnote}}
+\setcounter{footnote}{1}
+
+\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\labelenumi}{(\roman{enumi})}
+
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\floatpagefraction}{1.0}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+
+% to get nice proofs ...
+\newcommand{\qedsymb}{\mbox{ }~\hfill~{\rule{2mm}{2mm}}}
+\newenvironment{proof}{\begin{trivlist}
+\item[\hspace{\labelsep}{\bf\noindent Proof: }]
+}{\qedsymb\end{trivlist}}
+
+
+\newfont{\msymb}{cmsy10 scaled 1000}
+
+\def\nullset{\mbox{\O}}
+\def\R{{I\!\!R}}
+\def\C{{I\!\!\!\!C}}
+\def\N{{I\!\!N}}
+
+\def\P{\mbox{\msymb P}}
+
+
+%\parskip 0.1in
+\pagenumbering{arabic}    %  Start using 1,2,... as page numbers.
+\pagestyle{plain}         %  Page numbers in middle bottom of page.
+%\setcounter{page}{80}  % XXXXXXXXXXXXXXXXX
+%\setcounter{theorem}{5} % XXXXXXXXXXXXXXXXX
+%\setcounter{definition}{10} % XXXXXXXXXXXXXXXXX
+
+\parindent 0in
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\begin{table}\centering
+\begin{tabular*}{6.15in}{@{\extracolsep{\fill}}|llr|} \hline
+Stat 5050: Introduction to R & \hspace*{0.5 in}\\
+ & & \\
+\multicolumn{3}{|c|}{
+{\bf Name:} Peter Kurtz} \\
+ & & \\
+\multicolumn{3}{|c|}{
+Homework Assignment 03 } \\
+ & & \\
+\multicolumn{3}{|c|}{
+40 Points} \\
+\hline
+\end{tabular*}
+\end{table}
+
+
+{\bf General Instructions}
+
+For this third homework assignment, you have to work with RMarkdown or knitr/Sweave.
+You can create your own RMarkdown (.Rmd) file,
+based on files from class and from Homework 1, copy the
+question numbers and the answer options into your .Rmd file, 
+and knit that file into a pdf file. 
+{\bf Alternatively} (and much easier!!!), use this .Rnw file as a 
+template, just fill in the answers into the provided spaces,
+and knit into a pdf file.
+
+Only the final resulting pdf file (from .Rmd or .Rnw) has to be submitted via Canvas.
+As previously stated, I would like to encourage potential and current MS and PhD students
+to work with .Rnw and \LaTeX\ instead of .Rmd.
+
+{\bf Do not forget to replace my name and include your name instead!}
+
+
+\begin{enumerate}
+
+\item (20 Points) {\bf Sequences in R:} \\
+Use {\tt :, seq()}, or {\tt rep()} and some other operators/functions appropriately, 
+but definitely {\bf not c()}, to create the following sequences:
+
+\begin{enumerate}
+\item (3 Points)
+1  5  9 13 17 21 25 29 33 37 41 45 (numeric vector of length 12)
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlkwd{seq}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{45}\hlstd{,}\hlkwc{length}\hlstd{=}\hlnum{12}\hlstd{)}
+\end{alltt}
+\end{kframe} [1]  1  5  9 13 17 21 25 29 33 37 41 45
+
+
+
+\item (4 Points)
+1   -20   300 -4000 50000 (numeric vector of length 5)
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlstd{nonNeg} \hlkwb{=} \hlkwd{seq}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{5}\hlstd{)}\hlopt{*}\hlkwd{rep}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{5}\hlstd{)}\hlopt{**}\hlstd{(}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{4}\hlstd{))}
+\hlstd{alternating}\hlkwb{=}\hlkwd{rep}\hlstd{(}\hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{,}\hlkwc{by}\hlstd{=}\hlnum{2}\hlstd{),} \hlkwc{times}\hlstd{=}\hlnum{3}\hlstd{)}\hlopt{*-}\hlnum{1}
+\hlstd{nonNeg}\hlopt{*}\hlstd{alternating[}\hlopt{-}\hlnum{6}\hlstd{]}
+\end{alltt}
+\end{kframe}[1]     1   -20   300 -4000 50000
+
+
+
+\item (4 Points)
+``a1'' ``b2'' ``b3'' ``c4'' ``c5'' ``c6'' (character vector of length 6) \\
+Note: You are allowed to use \verb|letters[...]| in this part.
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlstd{dec}\hlkwb{=}\hlkwd{seq}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{3}\hlstd{)}
+\hlstd{let} \hlkwb{=} \hlkwd{rep}\hlstd{(letters[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{], dec)}
+\hlkwd{paste}\hlstd{(let,} \hlkwd{seq}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{6}\hlstd{),} \hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{)}
+\end{alltt}
+\end{kframe}[1] "a1" "b2" "b3" "c4" "c5" "c6"
+
+
+
+\item (4 Points)
+FALSE TRUE FALSE TRUE FALSE TRUE (logical vector of length 6)
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlstd{numAlt} \hlkwb{=} \hlkwd{rep}\hlstd{(}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{1}\hlstd{),} \hlnum{3}\hlstd{)}
+\hlstd{numAlt} \hlopt{%in%} \hlnum{1}
+\end{alltt}
+\end{kframe}[1] FALSE  TRUE FALSE  TRUE FALSE  TRUE
+
+
+
+\item (5 Points)
+ 10  9  8  7  8  7  6  5  6  5  4  3  4  3  2  1 (numeric vector of length 16)
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlkwd{rep}\hlstd{(}\hlkwd{seq}\hlstd{(}\hlnum{10}\hlstd{,}\hlnum{7}\hlstd{,}\hlkwc{by}\hlstd{=}\hlopt{-}\hlnum{1}\hlstd{),} \hlkwc{times} \hlstd{=} \hlnum{4}\hlstd{)} \hlopt{+} \hlkwd{rep}\hlstd{(}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlopt{-}\hlnum{6}\hlstd{,}\hlkwc{by}\hlstd{=}\hlopt{-}\hlnum{2}\hlstd{),} \hlkwc{each} \hlstd{=} \hlnum{4}\hlstd{)}
+\end{alltt}
+\end{kframe} [1] 10  9  8  7  8  7  6  5  6  5  4  3  4  3  2  1
+
+
+\end{enumerate}
+
+{\bf Show your R code and the final sequence produced from within R!}
+
+{\bf Hint:} You may want to look at the help pages (and examples!) for {\tt paste and paste0} 
+how to concatenate strings. Also google how to create a letter sequence in R 
+(you are not allowed to write c("a", "b", "c") in part (c) above).
+Create your R expressions in multiple steps. It is unlikely that you
+will succeed with your first attempt to do everything in one step immediately. If you are struggling look back at your L07 notes and exercises. 
+
+
+\newpage
+
+
+\item (20 Points) {\bf Mammals Data:} \\
+The data set {\tt mammals} in the package {\tt MASS} contains average brain weights (g) 
+and average body weights (kg) for 62 species of land mammals. 
+Use R expressions or functions to find the following. 
+
+{\bf Note:} You are not allowed to do this 
+by inspecting the data set or by manually typing in names or numbers that 
+have been calculated in R.
+
+{\bf Show your R code and the final result produced from within R!}
+
+First load the data as follows and create three new vectors:
+\begin{kframe}
+\begin{alltt}
+\hlkwd{data}\hlstd{(mammals,} \hlkwc{package} \hlstd{=} \hlstr{"MASS"}\hlstd{)}
+\hlstd{mnames} \hlkwb{<-} \hlkwd{rownames}\hlstd{(mammals)}
+\hlstd{mbody} \hlkwb{<-} \hlstd{mammals}\hlopt{$}\hlstd{body}
+\hlstd{mbrain} \hlkwb{<-} \hlstd{mammals}\hlopt{$}\hlstd{brain}
+\end{alltt}
+\end{kframe}
+
+\begin{enumerate}
+\item (2 Points)
+Show the first 10 lines of the entire mammals data set.
+
+\underline{Answer:}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{head}\hlstd{(mammals,} \hlnum{10}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##                    body brain
+## Arctic fox        3.385  44.5
+## Owl monkey        0.480  15.5
+## Mountain beaver   1.350   8.1
+## Cow             465.000 423.0
+## Grey wolf        36.330 119.5
+## Goat             27.660 115.0
+## Roe deer         14.830  98.2
+## Guinea pig        1.040   5.5
+## Verbet            4.190  58.0
+## Chinchilla        0.425   6.4
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+{\bf Work with mnames, mbody, and mbrain from now on!}
+
+
+\item (2 Points) 
+Calculate the range (aka., maximum minus minimum) of brain weights among
+the species. I want you to do the subtraction, don't just give the interval.
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlkwd{max}\hlstd{(mbrain)} \hlopt{-} \hlkwd{min}\hlstd{(mbrain)}
+\end{alltt}
+\end{kframe}[1] 5711.86
+
+
+
+\item (3 Points)
+List the name of the species with the heaviest brain (but do not list the
+weight for this species).
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlstd{mnames[}\hlkwd{which} \hlstd{(mbrain} \hlopt{==} \hlkwd{max}\hlstd{(mbrain))]}
+\end{alltt}
+\end{kframe}[1] "African elephant"
+
+
+
+\item (4 Points)
+List the names of the species with a brain heavier than 400g and body
+weight less than 500kg.
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlstd{mnames[mbrain} \hlopt{>} \hlnum{400} \hlopt{&} \hlstd{mbody} \hlopt{<} \hlnum{500}\hlstd{]}
+\end{alltt}
+\end{kframe}[1] "Cow"        "Donkey"     "Gorilla"    "Human"      "Okapi"     
+[6] "Chimpanzee"
+
+
+
+\item (4 Points)
+List the names of the two species with their average body weights closest
+to the median of the body weights. Do not list the actual body weights 
+for these two species but make sure that your result is plausible
+(e.g., if an elephant is among these two species, something must be wrong).
+
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlstd{x} \hlkwb{=} \hlkwd{which}\hlstd{(}\hlkwd{abs}\hlstd{(mbody} \hlopt{-} \hlkwd{median}\hlstd{(mbody))} \hlopt{==} \hlkwd{min}\hlstd{(}\hlkwd{abs}\hlstd{(mbody}\hlopt{-}\hlkwd{median}\hlstd{(mbody))))}
+\hlstd{mnames[x]}
+\end{alltt}
+\end{kframe}[1] "Arctic fox" "Cat"       
+
+
+
+\item (5 Points)
+List the names of the top--3 species with the largest ratios between
+brain and body weights (i.e., brain / body). Sort them from 
+highest ratio in decreasing order.
+ 
+\underline{Answer:}
+\begin{kframe}
+\begin{alltt}
+\hlstd{largeRatio} \hlkwb{=} \hlstd{mbrain}\hlopt{/}\hlstd{mbody}
+\hlstd{orderofRatio} \hlkwb{=} \hlkwd{order}\hlstd{(largeRatio,} \hlkwc{decreasing} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlstd{largeVector} \hlkwb{=} \hlkwd{c}\hlstd{(orderofRatio[}\hlnum{1}\hlopt{:}\hlnum{3}\hlstd{])}
+\hlstd{mnames[largeVector]}
+\end{alltt}
+\end{kframe}[1] "Ground squirrel"           "Owl monkey"               
+[3] "Lesser short-tailed shrew"
+
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+\end{document}
+

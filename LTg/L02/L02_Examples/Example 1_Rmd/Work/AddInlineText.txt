@@ -1,0 +1,10 @@
+You can add inline text as follows, e.g., to
+provide the result of an R calculation in a sentence:
+The mean temperature is `r mean(temp, na.rm = TRUE)` degrees Fahrenheit.
+
+By the way, did you know that `r mean(temp, na.rm = TRUE)` degrees Fahrenheit are
+`r tempC(mean(temp, na.rm = TRUE))` degrees Celsius?
+
+This looks terrible! So let's round this to two digits after the decimal point:
+Did you know that about `r round(mean(temp, na.rm = TRUE), digits = 2)` degrees Fahrenheit are
+about `r round(tempC(mean(temp, na.rm = TRUE)), digits = 2)` degrees Celsius?

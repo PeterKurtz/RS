@@ -1,0 +1,269 @@
+---
+title: "A Sample RMarkdown Document with LaTeX"
+author: "Juergen Symanzik"
+abstract: "This document provides an introduction to R Markdown, argues for its..."
+keywords: "pandoc, r markdown, knitr"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  pdf_document:
+    keep_tex: true
+    fig_caption: true
+    toc: true
+    number_sections: true
+    includes:
+      #in_header: header.tex
+      before_body: before_body.tex
+      #after_body: after_body.tex
+keep_tex: true
+documentclass: article
+fontsize: 11pt
+fontfamily: mathpazo
+# spacing: double
+fig_width: 7
+fig_height: 5
+geometry: margin=1in
+header-includes:
+  - \usepackage{graphicx}
+  - \usepackage{hyperref}
+  - \usepackage{verbatim}
+  - \usepackage{wasysym}
+  - \usepackage{natbib}
+bibliography: citations.bib
+bibliographystyle: agsm
+---
+
+\pagenumbering{roman}
+
+\newpage
+\pagenumbering{arabic}
+
+# Using Markdown via RStudio
+
+First, you will need to download and install  MiKTeX: http://miktex.org
+
+Now you should go into RStudio and use Tools $\rightarrow$ Global Options... $\rightarrow$ Sweave (on the left) and change the *Weave Rnw files using:* option (at the top) to *knitr*. 
+
+Notice that you can open an existing \LaTeX\ .tex file from within RStudio.
+This file is recognized as a .tex file and you can translate it to pdf
+via the *Compile PDF* tab that shows up in RStudio when a .tex file is open.
+
+Alongside the *Compile PDF* tab in RStudio, there is a Format menu so you can write many common \LaTeX\ commands easily and you do not need to memorize them.
+
+If you need to do something that is more complicated, you can use one of the many references available, such as those listed in Section \ref{docs} on page \pageref{docs}.
+
+
+## First New Subsection
+
+## Second New Subsection
+
+We can easily add a skeleton bullet list using \LaTeX\ or RMarkdown
+
+\begin{itemize}
+  \item red
+  \begin{itemize}
+    \item subitem 1
+    \begin{itemize}
+      \item subsubitem
+    \end{itemize}
+    \item subitem 2
+  \end{itemize}
+  \item yellow
+  \item blue
+\end{itemize}
+
+- red
+    + subitem 1
+         + subsubitem
+    + subitem 2
+- yellow
+- blue
+  
+or a numbered list:
+\begin{enumerate}
+  \item first
+  \item second
+  \item third
+\end{enumerate}
+
+1. first
+    + subitem
+2. second
+3. third
+
+
+## Math Symbols
+
+Let's try a few math symbols: $\mu, \sigma, \lambda,
+s_1 = \sum_{i=1}^n i^2, \infty, \sqrt{x}, \bar{x}$ .
+
+
+Now, do the sum in a math environment:
+\[
+s_1 = \sum_{i=1}^n {\alpha_i}^2
+\]
+
+Notice that if we try to write words in math they don't come out right. For example, we may write $3\pi Info = 2 log(x)$. It looks better if we write $3\pi \mbox{Info} = 2 \log(x)$
+
+Compare $\ldots$ with ...
+
+If we need to write a dollar sign, we no longer need to use a backslash: $10. It's the same with percentages, such as 100%. This means, of course, that if we have some \LaTeX\ after the $10, we might get unexpected results. $10 \mu$ gives an error message if we omit the trailing $.
+
+# \LaTeX\ Documentation \label{docs}
+
+Numerous web sites provide information about \LaTeX,
+including tutorials and help pages. Here are some:
+
+- http://www.latex-project.org/
+- http://en.wikibooks.org/wiki/LaTeX
+- http://miktex.org/
+- http://www.artofproblemsolving.com/Wiki/index.php/LaTeX:Symbols
+
+If you need help on a specific latex topic, google for
+\verb|latex| and the keyword or command you are interested in.
+
+# Automatic Creation of Citations and References
+
+## What is BibTeX?
+
+http://www.bibtex.org/ states:
+
+> The word ``BibTeX'' stands for a tool and a file format which are used to describe and process lists of references, mostly in conjunction with LaTeX documents.
+
+http://www.bibtex.org/About/ further states:
+
+> BibTeX has been widely in use since its introduction by Oren Patashnik 20 years ago. As the name suggests, it was intended to be used in combination with the typesetting system LaTeX, but it has become possible, for instance, to include BibTeX-bibliographies even in Word-Documents using third-party tools.
+
+> BibTeX utilizes a plain-text file-format which can be created and modified using an arbitrary text-editor by the user. There are tools in existence which provide a more convenient UI.
+
+The BibTeX format is briefly described at http://www.bibtex.org/Format/.
+However, it makes more sense to take a closer look at an existing
+collection of BibTeX entries, e.g.the file citations.bib that accompanies this rmd document.
+
+## \LaTeX\ Setup
+
+A common setting for publications in the statistical community is to work
+with the *natbib* package and the *agsm* bibliography style.
+By the way, *agsm* stands for *Australian Government Style manual*.
+
+## Citations and References
+
+We cite references via the commands \verb|[@citation-key]|.
+To cite multiple references, separate them with a semicolon. 
+
+- Blah blah \verb|[see @CART, pp. 33-35; also @bagging, ch. 1]|. $\\$
+$\Rightarrow$
+Blah blah [see @CART, pp. 33-35; also @bagging, ch. 1]. 
+
+- Blah blah \verb|[@CART, pp. 33-35, 38-39]|. $\\$
+$\Rightarrow$
+Blah blah [@CART, pp. 33-35, 38-39].
+
+- Blah blah \verb|[@bagging; @CART]|. $\\$
+$\Rightarrow$
+Blah blah [@bagging; @CART].
+
+A minus sign (-) before the @ will suppress mention of the author in the citation. This can be useful when the author is already mentioned in the text:
+
+- Knuth says blah \verb|[-@Knuth:ct-a]|. $\\$
+$\Rightarrow$
+Knuth says blah [-@Knuth:ct-a].
+
+You can also write an in-text citation, as follows:
+
+- \verb|@CART| says blah. $\\$
+$\Rightarrow$
+@CART says blah.
+
+- \verb|@CART| [p. 33] says blah. $\\$
+$\Rightarrow$
+@CART [p. 33] says blah.
+
+We can combine several references into one cite command, e.g.,
+[@R; @Lamport85; @RF].
+
+Moreover, we can add additional information to a citation, e.g.,
+[p. 5 @RF] or [see for example p. 5 @RF].
+Check the source code how this has been produced.
+
+Here are some examples: [@R] is the R citation,
+[@Lamport85] is an excellent book about \LaTeX\, [@RF] is
+a journal article. We can omit the () by omitting the [], e.g. @RF is the Random Forests paper. One super-cool feature of all this is that the bibliography will, by default, only list those citations that have been cited in the paper. 
+
+## Different Styles for Citations and Reference Lists
+
+There are several ways citing references and arranging reference lists.
+Some journals cite by number and do not sort the reference list 
+alphabetically, but rather leave it in sequential order. As authors,
+we have to follow the instructions provided by the publisher
+of our article, book, or any other publication.
+
+BibTeX makes it easy to change the appearance of citations 
+and the reference list. Replace  the
+\verb|\usepackage{natbib}| command with one of the following options:
+
+- \verb|\usepackage[numbers]{natbib}|.
+- \verb|\usepackage[super]{natbib}|.
+
+More details on the *natbib* package usage can be found at
+http://merkel.zoneo.net/Latex/natbib.php.
+
+A large number of different bibstyles are
+documented at 
+http://www.cs.stir.ac.uk/~kjt/software/latex/showbst.html
+
+An easy--to--read BibTeX tutorial (derived from a ppt presentation) 
+can be found at 
+http://www.ntg.nl/bijeen/pdf-s.20031113/BibTeX-tutorial.pdf
+
+**Whenever you change the style, you should first
+remove the previous .bbl file to ensure that a new .bbl file
+is created according to the new style.**
+
+## Conclusions
+
+The main advantage of working with a bibliography file is that this
+file is growing with your work. Over time, we are likely to cite
+the same references many times. However, the appearance
+of the citations and the reference list likely will differ from
+document to document. There will be differences
+when working on a MS report or a dissertation, a conference paper,
+a journal article, or a book chapter. Likely, citation styles will be different
+for different disciplines and even for different publishers.
+
+However, once you have entered your references into your bibliography file,
+you will usually only have to modify two or three commands
+to adapt to a new style --- rather than manually adjusting
+and reformatting dozens of references in a single document.
+
+# R Chunks
+
+Of course, we can insert results and plots from R using R chunks:
+
+```{r cars}
+summary(cars)
+```
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+# Tables 
+
+Simple tables can be extremely easy.
+
+Table Header | Second Header
+------------- | -------------
+Cell 1 | Cell 2
+Cell 3 | Cell 4 
+
+
+# Credits
+
+Credits are due to Adele Cutler who initially created this example.
+Additional examples can be found at
+http://www.calvin.edu/~rpruim/courses/m343/F12/RStudio/LatexExamples.html
+
+
+# References
+

@@ -1,0 +1,182 @@
+---
+title: "Stat 5050: Introduction to R, Homework 01 (20 Points)"
+author: "Peter Kurtz"
+date: 
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+# General Instructions
+
+For this first homework assignment, each student **must** create a R
+Markdown (.Rmd) file and knit that file into a pdf file. Only that
+resulting pdf file has to be submitted via Canvas. Starting with
+Homework 02, I encourage potential and current MS and PhD students to
+work with Rnw and LaTeX instead, but everyone at least once has to work
+with R Markdown!
+
+**For this HW, download the Rmd file and edit it. Fill in your answers
+as text and place your R code in the predefined code chunks.**
+
+Feel free to use this Rmd file as a template for future HW submissions
+if you plan to create those using R Markdown.
+
+Do not forget to add your name!
+
+------------------------------------------------------------------------
+
+# Questions
+
+## Question (i) (4 Points)
+
+Tell me a little more about you:
+
+1.  What is your name? My name is Peter Kurtz.
+2.  What is your major? (State all if you have more than one). My major is mathematics and statistics composite major. 
+3.  Are you a Freshman, Sophomore, Junior, Senior, MS student, or PhD
+    student? I am a Senior.
+4.  What do you consider your current level of R competence? Don't be
+    too modest. 
+    -   none
+    -   very little competence
+    -   basic competence
+    -   advanced competence
+    -   guru
+  
+I would consider myself to have basic competence.
+
+Note: To create this list, I had to look at this help page:
+<https://stackoverflow.com/questions/45541361/creating-lists-and-sub-items-in-r-markdown-not-working-any-longer>.
+Note that there are no spaces but Tab symbols after the digit and double
+Tab symbols before the + to create this nested list.
+
+**In fact, when working with R, R Markdown, Rnw, LaTeX, bibtex, and
+more, we will frequently have to look up information from the web.
+Learning to find online information efficiently will be a major goal for
+this course and future follow-up courses.**
+
+------------------------------------------------------------------------
+
+## Question (ii) (2 Points)
+
+What do you hope to gain from this course? You could answer this in
+terms of the previous question, i.e., what level of R competence do you
+**wish to achieve** in the long term (and not only after these 5 weeks)?
+Answer in 2 or 3 sentences, e.g., with respect to a future job you might
+be interested in (and how to use R in that job).
+
+I hope to gain advanced competence in R. I am interested in becoming a statistical 
+programmer or data scientist so knowing R would be very beneficial. I think I could
+achieve this in a year.
+
+------------------------------------------------------------------------
+
+## Question (iii) (4 Points)
+
+Which follow-up courses that make use of R do you plan to attend after
+this course? List at least 2 such courses. Be as specific as possible
+and list the course numbers, titles, instructor names, course web pages
+(if available), and any other information you can find for these
+courses. Include URLs, i.e., links to web pages, whenever possible.
+
+Statistical Visualization I is a class I would like to take. The course number is 
+STAT 5550. The class seems to be taught be multiple professors. URL: <https://catalog.usu.edu/search_advanced.php?cur_cat_oid=35&search_database=Search&search_db=Search&cpage=1&ecpage=1&ppage=1&spage=1&tpage=1&location=33&filter%5Bkeyword%5D=STAT+5550>
+
+Another class I would like to take is Data Technologies. The course number
+is STAT 5080. This class also seems to be taught by multiple professors. I could
+only find this class on college scheduler under my account and Coursicle. 
+URL: <https://www.coursicle.com/usu/courses/STAT/5080/>
+
+------------------------------------------------------------------------
+
+## Question (iv) (10 Points)
+
+Revisit the Example1.Rmd example (from the L02_Examples zip file) that
+is related to temperatures. Copy all relevant code chunks into this file
+to answer the following question parts.
+
+Load the SFTemps.rda data file
+
+```{r}
+load("SFTemps.rda")
+```
+
+Temperature conversion function from Fahrenheit to Celsius
+
+```{r}
+tempC <- function(temp) {
+  celsius <- ((temp - 32) * (5 / 9))
+  return(celsius)
+}
+```
+
+### Part (a) (2 Points)
+
+What was the median temperature? Adjust the calculation for the mean,
+but use median instead. **Show the R code and the result!**
+
+```{r echo=TRUE}
+median(temp, na.rm = TRUE)
+```
+
+### Part (b) (2 Points)
+
+What was the maximum temperature? Adjust the calculation for the
+minimum, but use max instead. **Show only the result (but not the R
+code)!**
+
+```{r echo=FALSE}
+max(temp, na.rm = TRUE)
+```
+
+### Part (c) (2 Points)
+
+```{r echo = FALSE}
+obs = length(temp)
+```
+
+Complete the following sentence: The temp data set contains `r obs`
+observations. **Use inline R code and do not manually copy the number
+into the xxx position.** Revisit
+<https://bookdown.org/yihui/rmarkdown-cookbook/r-code.html> if you don't
+recall how to use inline R code.
+
+### Part (d) (2 Points)
+
+Graphics are not part of this course, but we should be able to
+incorporate them into our R Markdown (or Rnw) documents. So, create a
+basic boxplot of the temp data set. Follow the histogram example. **Only
+show the resulting boxplot (but not the R code)!**
+
+```{r echo=FALSE}
+boxplot(temp)
+```
+
+### Part (e) (2 Points)
+
+What are -40, 32, and 50 degrees Fahrenheit in degrees Celsius? Use the
+tempC function 3 times to obtain the Celsius degrees. You can call a
+user-defined function (such as tempC) in a similar way as to calling the
+min, max, mean, median, summary, etc. functions. **It is always a good
+idea to verify and check your results. So, if you are in doubt whether
+these results are correct, use your phone or an online temperature
+conversion calculator and do the same calculations!** **Show the R code
+and the results!**
+
+```{r echo=TRUE}
+tempC(-40)
+tempC(32)
+tempC(50)
+```
+
+------------------------------------------------------------------------
+
+**You are done with Homework 01 !!!**

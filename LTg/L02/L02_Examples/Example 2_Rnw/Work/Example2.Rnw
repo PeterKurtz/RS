@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage[title,titletoc,toc]{appendix}
+\usepackage{wasysym}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{natbib}
+
+
+\begin{document}
+<<echo=FALSE>>=
+opts_knit$set(concordance=TRUE)
+@
+
+\begin{titlepage}
+
+\begin{center}
+{\large Introduction to R} \\[1.5in]
+
+{\LARGE \bf A Sample Rnw Document for use with RStudio} \\[.4in]
+by \\[.4in]
+{\bf J\"urgen Symanzik} \\[1in]
+{\bf Date:} \today \\[.8in]
+
+UTAH STATE UNIVERSITY \\[.2in]
+Logan, UT \\[0.2in]
+Fall 2020 \\[0.2in]
+\end{center}
+
+\thispagestyle{empty}
+\vfill
+\end{titlepage}
+
+
+\newpage 
+
+\pagenumbering{roman}
+
+\tableofcontents
+
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Creating an Rnw File}
+
+R \cite{R} code can be included in an existing \LaTeX\ document by changing the name of the file from myfilename.tex to myfilename.Rnw and opening the Rnw file in RStudio.  Alternatively, use File $\rightarrow$ New File $\rightarrow$ R Sweave and fill in the template. 
+
+R code can be embedded in your \LaTeX\ document in a very similar way to the way it is done in R Markdown. An R chunk starts with \verb|<<>>=| and  ends with \verb|@|.
+Here is an example:
+
+<<>>=
+pi
+@
+
+
+and another:
+<<>>=
+x <- rnorm(5)
+x
+@
+
+<<>>=
+xbar <- mean(x)
+xbar
+@
+
+We can put options in the \verb|<<>>| (here \verb|<<echo=FALSE>>|):
+
+<<echo=FALSE>>=
+xbar <- mean(x)
+xbar
+@
+
+and we can set options that will last for the rest of the document using \verb|opts_chunk$set()|:
+
+<<>>=
+opts_chunk$set(prompt=TRUE)
+@
+
+<<results='hide'>>=
+xbar <- mean(x)
+xbar
+@
+
+We can draw plots:
+
+<<>>=
+qqnorm(rnorm(1000))
+@
+
+
+\newpage
+
+
+\section{Multiple Code Chunks}
+
+We can create multiple code chunks and then only evaluate them later on
+(look at the Rnw source code to see what happens here):
+
+<<a, echo=FALSE>>=
+x <- 10
+@
+
+<<b, eval=FALSE, echo=FALSE>>=
+x + y
+@
+
+<<c>>=
+<<a>>
+y <- 20
+<<b>>
+@
+
+
+\section{Citations and References}
+
+By the way, \LaTeX\ helps you with references and citations via
+a bibtex (.bib) file. Once a reference has been entered into such a file,
+you can just cite it. Below are some examples:
+
+\begin{itemize}
+\item Here a citation ``as noun'':
+\cite{Lamport85} is a main reference for \LaTeX.
+
+\item Here a citation in parentheses:
+Several sources for help with knitr exist \citep{knitr2013}.
+
+\item You can combine multiple references: These references
+\citep{CART,bagging,RF} likely will be used in some of Adele Cutler's courses.
+\end{itemize}
+
+Note that the reference list is created automatically! The file ``agsm.bst''
+determines the appearance of the references. Most publishers and journals
+provide their own bst file so the references will appear immediately
+in the proper book or journal style.
+
+
+\bibliographystyle{agsm}
+
+
+\bibliography{Citations}
+
+
+\end{document}
+

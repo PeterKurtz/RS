@@ -1,0 +1,50 @@
+---
+title: "Temperatures (Rmd)"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+  pdf_document: default
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+Load data
+```{r}
+load("SFTemps.rda")
+```
+
+Temperature conversion from Fahrenheit to Celsius
+```{r}
+tempC <- function(temp) {
+  celsius <- ((temp - 32) * (5 / 9))
+  return(celsius)
+}
+```
+
+How many observations are there? 
+```{r}
+length(temp)
+```
+
+What was the coldest temperature recorded in this time period? 
+```{r echo=TRUE}
+min(temp, na.rm = TRUE)
+```
+
+What were the five warmest temperatures recorded in this time period? 
+```{r}
+tail(sort(temp), 5)
+```
+
+What was the mean daily temperature? 
+```{r}
+mean(temp, na.rm = TRUE)
+```
+
+What does the distribution of temperatures look like, i.e., are there roughly as many warm as cold days, are the temps clustered around one value or spread evenly across the range of observed temperatures, etc.? You might need to change the number of bins in order to investigate this. Please include one plot in your writeup. 
+```{r}
+hist(temp)
+```

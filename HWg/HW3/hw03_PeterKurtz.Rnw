@@ -1,0 +1,266 @@
+\documentclass[12pt,letterpaper,final]{article}
+
+%\usepackage{Sweave}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{verbatim}
+\usepackage{textcomp}
+\usepackage{wasysym}
+
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.15in}
+%\setlength{\topmargin}{0.5in}
+\setlength{\textheight}{22cm}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\parskip}{5pt plus 2pt minus 3pt}
+
+\def\thefootnote{\fnsymbol{footnote}}
+\setcounter{footnote}{1}
+
+\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\labelenumi}{(\roman{enumi})}
+
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\floatpagefraction}{1.0}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+
+% to get nice proofs ...
+\newcommand{\qedsymb}{\mbox{ }~\hfill~{\rule{2mm}{2mm}}}
+\newenvironment{proof}{\begin{trivlist}
+\item[\hspace{\labelsep}{\bf\noindent Proof: }]
+}{\qedsymb\end{trivlist}}
+
+
+\newfont{\msymb}{cmsy10 scaled 1000}
+
+\def\nullset{\mbox{\O}}
+\def\R{{I\!\!R}}
+\def\C{{I\!\!\!\!C}}
+\def\N{{I\!\!N}}
+
+\def\P{\mbox{\msymb P}}
+
+
+%\parskip 0.1in
+\pagenumbering{arabic}    %  Start using 1,2,... as page numbers.
+\pagestyle{plain}         %  Page numbers in middle bottom of page.
+%\setcounter{page}{80}  % XXXXXXXXXXXXXXXXX
+%\setcounter{theorem}{5} % XXXXXXXXXXXXXXXXX
+%\setcounter{definition}{10} % XXXXXXXXXXXXXXXXX
+
+\parindent 0in
+
+
+\begin{document}
+
+\begin{table}\centering
+\begin{tabular*}{6.15in}{@{\extracolsep{\fill}}|llr|} \hline
+Stat 5050: Introduction to R & \hspace*{0.5 in}\\
+ & & \\
+\multicolumn{3}{|c|}{
+{\bf Name:} Peter Kurtz} \\
+ & & \\
+\multicolumn{3}{|c|}{
+Homework Assignment 03 } \\
+ & & \\
+\multicolumn{3}{|c|}{
+40 Points} \\
+\hline
+\end{tabular*}
+\end{table}
+
+
+{\bf General Instructions}
+
+For this third homework assignment, you have to work with RMarkdown or knitr/Sweave.
+You can create your own RMarkdown (.Rmd) file,
+based on files from class and from Homework 1, copy the
+question numbers and the answer options into your .Rmd file, 
+and knit that file into a pdf file. 
+{\bf Alternatively} (and much easier!!!), use this .Rnw file as a 
+template, just fill in the answers into the provided spaces,
+and knit into a pdf file.
+
+Only the final resulting pdf file (from .Rmd or .Rnw) has to be submitted via Canvas.
+As previously stated, I would like to encourage potential and current MS and PhD students
+to work with .Rnw and \LaTeX\ instead of .Rmd.
+
+{\bf Do not forget to replace my name and include your name instead!}
+
+
+\begin{enumerate}
+
+\item (20 Points) {\bf Sequences in R:} \\
+Use {\tt :, seq()}, or {\tt rep()} and some other operators/functions appropriately, 
+but definitely {\bf not c()}, to create the following sequences:
+
+\begin{enumerate}
+\item (3 Points)
+1  5  9 13 17 21 25 29 33 37 41 45 (numeric vector of length 12)
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+seq(1,45,length=12)
+@
+
+
+\item (4 Points)
+1   -20   300 -4000 50000 (numeric vector of length 5)
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+nonNeg = seq(1,5)*rep(10,5)**(seq(0,4))
+alternating=rep(seq(-1,1,by=2), times=3)*-1
+nonNeg*alternating[-6]
+@
+
+
+\item (4 Points)
+``a1'' ``b2'' ``b3'' ``c4'' ``c5'' ``c6'' (character vector of length 6) \\
+Note: You are allowed to use \verb|letters[...]| in this part.
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+dec=seq(1,3)
+let = rep(letters[1:3], dec)
+paste(let, seq(1,6), sep="")
+@
+
+
+\item (4 Points)
+FALSE TRUE FALSE TRUE FALSE TRUE (logical vector of length 6)
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+numAlt = rep(seq(0,1), 3)
+numAlt %in% 1
+@
+
+
+\item (5 Points)
+ 10  9  8  7  8  7  6  5  6  5  4  3  4  3  2  1 (numeric vector of length 16)
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+rep(seq(10,7,by=-1), times = 4) + rep(seq(0,-6,by=-2), each = 4)
+@
+
+\end{enumerate}
+
+{\bf Show your R code and the final sequence produced from within R!}
+
+{\bf Hint:} You may want to look at the help pages (and examples!) for {\tt paste and paste0} 
+how to concatenate strings. Also google how to create a letter sequence in R 
+(you are not allowed to write c("a", "b", "c") in part (c) above).
+Create your R expressions in multiple steps. It is unlikely that you
+will succeed with your first attempt to do everything in one step immediately. If you are struggling look back at your L07 notes and exercises. 
+
+
+\newpage
+
+
+\item (20 Points) {\bf Mammals Data:} \\
+The data set {\tt mammals} in the package {\tt MASS} contains average brain weights (g) 
+and average body weights (kg) for 62 species of land mammals. 
+Use R expressions or functions to find the following. 
+
+{\bf Note:} You are not allowed to do this 
+by inspecting the data set or by manually typing in names or numbers that 
+have been calculated in R.
+
+{\bf Show your R code and the final result produced from within R!}
+
+First load the data as follows and create three new vectors:
+<<echo=TRUE,results='asis'>>=
+data(mammals, package = "MASS")
+mnames <- rownames(mammals)
+mbody <- mammals$body
+mbrain <- mammals$brain
+@
+
+\begin{enumerate}
+\item (2 Points)
+Show the first 10 lines of the entire mammals data set.
+
+\underline{Answer:}
+<<echo=TRUE>>=
+head(mammals, 10)
+@
+
+{\bf Work with mnames, mbody, and mbrain from now on!}
+
+
+\item (2 Points) 
+Calculate the range (aka., maximum minus minimum) of brain weights among
+the species. I want you to do the subtraction, don't just give the interval.
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+max(mbrain) - min(mbrain)
+@
+
+
+\item (3 Points)
+List the name of the species with the heaviest brain (but do not list the
+weight for this species).
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+mnames[which (mbrain == max(mbrain))]
+@
+
+
+\item (4 Points)
+List the names of the species with a brain heavier than 400g and body
+weight less than 500kg.
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+mnames[mbrain > 400 & mbody < 500]
+@
+
+
+\item (4 Points)
+List the names of the two species with their average body weights closest
+to the median of the body weights. Do not list the actual body weights 
+for these two species but make sure that your result is plausible
+(e.g., if an elephant is among these two species, something must be wrong).
+
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+x = which(abs(mbody - median(mbody)) == min(abs(mbody-median(mbody))))
+mnames[x]
+@
+
+
+\item (5 Points)
+List the names of the top--3 species with the largest ratios between
+brain and body weights (i.e., brain / body). Sort them from 
+highest ratio in decreasing order.
+ 
+\underline{Answer:}
+<<echo=TRUE,results='asis'>>=
+largeRatio = mbrain/mbody
+orderofRatio = order(largeRatio, decreasing = TRUE)
+largeVector = c(orderofRatio[1:3])
+mnames[largeVector]
+@
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+\end{document}
+
