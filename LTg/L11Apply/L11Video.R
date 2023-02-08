@@ -30,9 +30,10 @@ sapply(day, function(x) length(unique(floor(x))))
 sapply(rain, function(x) sum(x>0)/length(x))
 sapply(rain, function(x) mean(x>0))
 
-m <- matrix(1:6, nrow = 2)
-apply(m, 1, sum)
-apply(m, 2, sum)
+t <- matrix(1:6, nrow = 2)
+t
+apply(t, 1, sum)
+apply(t, 2, sum)
 
 
 

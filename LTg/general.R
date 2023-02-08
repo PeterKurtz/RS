@@ -70,7 +70,8 @@ y <- x * 3 + rnorm(100)
 regression.results <- lm(y~x)
 names(regression.results)
 
-
+#Matrix of one value
+i <- matrix(1, 10,10)
 
 
 

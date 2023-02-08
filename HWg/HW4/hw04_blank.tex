@@ -197,27 +197,14 @@ to check whether something is a data frame.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{load}\hlstd{(}\hlstr{'hw04_familyDF.rda'}\hlstd{)}
-\hlstd{family}
+\hlkwd{names}\hlstd{(family)}
 \end{alltt}
 \begin{verbatim}
-##    firstName gender age height weight      bmi overWt
-## 1        Tom      m  77     70    175 25.16239   TRUE
-## 2        May      f  33     64    125 21.50106  FALSE
-## 3        Joe      m  79     73    185 24.45884  FALSE
-## 4        Bob      m  47     67    156 24.48414  FALSE
-## 5        Sue      f  27     64    105 18.06089  FALSE
-## 6        Liz      f  33     68    190 28.94981   TRUE
-## 7        Jon      m  67     68    185 28.18797   TRUE
-## 8        Sal      f  52     65    124 20.67783  FALSE
-## 9        Tim      m  59     68    175 26.66430   TRUE
-## 10       Tom      m  27     71    215 30.04911   TRUE
-## 11       Ann      f  55     67    166 26.05364   TRUE
-## 12       Dan      m  24     66    140 22.64384  FALSE
-## 13       Art      m  46     66    150 24.26126  FALSE
-## 14       Zoe      f  48     62    125 22.91060  FALSE
+## [1] "firstName" "gender"    "age"       "height"   
+## [5] "weight"    "bmi"       "overWt"
 \end{verbatim}
 \begin{alltt}
-\hlkwd{typeof}\hlstd{(family[}\hlnum{1}\hlstd{])} \hlopt{==} \hlstr{"list"}
+\hlkwd{is.data.frame}\hlstd{(family[}\hlnum{1}\hlstd{])}
 \end{alltt}
 \begin{verbatim}
 ## [1] TRUE
@@ -237,8 +224,27 @@ a member of the family is obese and FALSE otherwise. Display its content.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{OW.NHANES} \hlkwb{<-} \hlkwd{c}\hlstd{(family[}\hlstr{"bmi"}\hlstd{]} \hlopt{>} \hlnum{25} \hlopt{&} \hlstd{family[}\hlstr{"gender"}\hlstd{]} \hlopt{==} \hlstr{"f"} \hlopt{|} \hlstd{family[}\hlstr{"bmi"}\hlstd{]} \hlopt{>} \hlnum{26} \hlopt{&} \hlstd{family[}\hlstr{"gender"}\hlstd{]} \hlopt{==} \hlstr{"m"}\hlstd{)}
+\hlstd{OW.NHAMES} \hlkwb{=} \hlstd{family[}\hlstr{"bmi"}\hlstd{]} \hlopt{>} \hlnum{25} \hlopt{&} \hlstd{family[}\hlstr{"gender"}\hlstd{]} \hlopt{==} \hlstr{"f"} \hlopt{|}
+  \hlstd{family[}\hlstr{"bmi"}\hlstd{]} \hlopt{>} \hlnum{26} \hlopt{&} \hlstd{family[}\hlstr{"gender"}\hlstd{]} \hlopt{==} \hlstr{"m"}
+\hlstd{OW.NHAMES}
 \end{alltt}
+\begin{verbatim}
+##         bmi
+##  [1,] FALSE
+##  [2,] FALSE
+##  [3,] FALSE
+##  [4,] FALSE
+##  [5,] FALSE
+##  [6,]  TRUE
+##  [7,]  TRUE
+##  [8,] FALSE
+##  [9,]  TRUE
+## [10,]  TRUE
+## [11,]  TRUE
+## [12,] FALSE
+## [13,] FALSE
+## [14,] FALSE
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -264,6 +270,9 @@ Notice that we can ``subset'' a vector of length 2 by a much longer vector:
 \hlstd{OW.limit} \hlkwb{<-} \hlstd{OW.val[}\hlkwd{as.numeric}\hlstd{(family}\hlopt{$}\hlstd{gender)]}
 \hlstd{OW.limit}
 \end{alltt}
+\begin{verbatim}
+##  [1] 26 25 26 26 25 25 26 25 26 26 25 26 26 25
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -276,8 +285,32 @@ Did you get the intended result? If not, check your R code again!
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{OW.NHANES2} \hlkwb{=} \hlstd{family[}\hlstr{"bmi"}\hlstd{]} \hlopt{>=} \hlstd{OW.limit}
+\hlstd{OW.NHANES2}
 \end{alltt}
+\begin{verbatim}
+##         bmi
+##  [1,] FALSE
+##  [2,] FALSE
+##  [3,] FALSE
+##  [4,] FALSE
+##  [5,] FALSE
+##  [6,]  TRUE
+##  [7,]  TRUE
+##  [8,] FALSE
+##  [9,]  TRUE
+## [10,]  TRUE
+## [11,]  TRUE
+## [12,] FALSE
+## [13,] FALSE
+## [14,] FALSE
+\end{verbatim}
+\begin{alltt}
+\hlkwd{setequal}\hlstd{(OW.NHAMES, OW.NHANES2)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -294,8 +327,15 @@ and re-express it in terms of weight (i.e., \verb|weight = ...|).
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{heightFam} \hlkwb{=} \hlstd{family[,}\hlkwd{c}\hlstd{(}\hlstr{"height"}\hlstd{)]}
+\hlstd{OW.weight} \hlkwb{=} \hlstd{OW.limit}\hlopt{*}\hlstd{(}\hlnum{2.54}\hlopt{/}\hlnum{100}\hlopt{*}\hlstd{heightFam)}\hlopt{**}\hlnum{2}\hlopt{*}\hlnum{2.2}
+\hlstd{OW.weight}
 \end{alltt}
+\begin{verbatim}
+##  [1] 180.8254 145.3416 196.6569 165.6582 145.3416 164.0771
+##  [7] 170.6402 149.9191 170.6402 186.0288 159.2868 160.7501
+## [13] 160.7501 136.3997
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -323,6 +363,7 @@ the correct variable names in your code earlier on.
 \hlkwd{abline}\hlstd{(}\hlkwc{a} \hlstd{=} \hlnum{0}\hlstd{,} \hlkwc{b} \hlstd{=} \hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
 \end{knitrout}
 
 
@@ -342,11 +383,20 @@ So, write two R expressions that do this counting for us and display their resul
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlcom{# Number of points above the line}
-\hlcom{# Place your answer here}
-
-\hlcom{# Number of points below the line}
-\hlcom{# Place your answer here}
+\hlstd{overWeight} \hlkwb{=} \hlkwd{sum}\hlstd{(OW.NHAMES)}
+\hlstd{overWeight}
 \end{alltt}
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Number of points below the line}
+\hlstd{notOverWeight} \hlkwb{=} \hlkwd{length}\hlstd{(OW.NHAMES)} \hlopt{-} \hlstd{overWeight}
+\hlstd{notOverWeight}
+\end{alltt}
+\begin{verbatim}
+## [1] 9
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -378,8 +428,26 @@ to check whether something is a data frame. \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlkwd{load}\hlstd{(}\hlstr{'hw04_SFHousing.rda'}\hlstd{)}
+\hlkwd{names}\hlstd{(housing)}
 \end{alltt}
+\begin{verbatim}
+##  [1] "county"  "city"    "zip"     "street"  "price"  
+##  [6] "br"      "lsqft"   "bsqft"   "year"    "date"   
+## [11] "long"    "lat"     "quality" "match"   "wk"
+\end{verbatim}
+\begin{alltt}
+\hlkwd{is.data.frame}\hlstd{(housing[}\hlnum{2}\hlstd{])}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+\begin{alltt}
+\hlkwd{is.data.frame}\hlstd{(housing)}
+\end{alltt}
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -391,8 +459,13 @@ What are the names of the vectors in housing? \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlkwd{names}\hlstd{(housing)}
 \end{alltt}
+\begin{verbatim}
+##  [1] "county"  "city"    "zip"     "street"  "price"  
+##  [6] "br"      "lsqft"   "bsqft"   "year"    "date"   
+## [11] "long"    "lat"     "quality" "match"   "wk"
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -405,8 +478,11 @@ but not the number of columns! \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlkwd{nrow}\hlstd{(housing)}
 \end{alltt}
+\begin{verbatim}
+## [1] 281506
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -422,17 +498,77 @@ Describe in words at least three problems that you see with the data. \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlkwd{summary}\hlstd{(housing)}
 \end{alltt}
+\begin{verbatim}
+##                  county                 city       
+##  Santa Clara County :70424   Oakland      : 14730  
+##  Alameda County     :60410   Santa Rosa   :  9917  
+##  Contra Costa County:59381   Fremont      :  9414  
+##  Solano County      :23404   San Francisco:  8137  
+##  San Mateo County   :22558   Evergreen    :  7947  
+##  Sonoma County      :21676   Antioch      :  7726  
+##  (Other)            :23653   (Other)      :223635  
+##       zip            street              price         
+##  94565  :  4595   Length:281506      Min.   :   22000  
+##  94509  :  4302   Class :character   1st Qu.:  400000  
+##  95123  :  4023   Mode  :character   Median :  530000  
+##  95687  :  3652                      Mean   :  602000  
+##  94533  :  3472                      3rd Qu.:  700000  
+##  (Other):261457                      Max.   :20000000  
+##  NA's   :     5                                        
+##        br            lsqft               bsqft        
+##  Min.   :1.000   Min.   :       19   Min.   :    122  
+##  1st Qu.:2.000   1st Qu.:     4000   1st Qu.:   1121  
+##  Median :3.000   Median :     5760   Median :   1430  
+##  Mean   :3.024   Mean   :    65939   Mean   :   1624  
+##  3rd Qu.:4.000   3rd Qu.:     7701   3rd Qu.:   1882  
+##  Max.   :8.000   Max.   :418611600   Max.   :1868120  
+##                  NA's   :21687       NA's   :426      
+##       year           date                       
+##  Min.   :   0   Min.   :2003-04-27 01:00:00.00  
+##  1st Qu.:1954   1st Qu.:2004-02-08 01:00:00.00  
+##  Median :1971   Median :2004-10-24 01:00:00.00  
+##  Mean   :1966   Mean   :2004-11-01 17:06:12.50  
+##  3rd Qu.:1985   3rd Qu.:2005-07-24 01:00:00.00  
+##  Max.   :3894   Max.   :2006-06-04 01:00:00.00  
+##  NA's   :9202                                   
+##       long             lat       
+##  Min.   :-123.6   Min.   :36.98  
+##  1st Qu.:-122.3   1st Qu.:37.50  
+##  Median :-122.1   Median :37.77  
+##  Mean   :-122.1   Mean   :37.78  
+##  3rd Qu.:-121.9   3rd Qu.:38.00  
+##  Max.   :-121.5   Max.   :38.85  
+##  NA's   :23316    NA's   :23316  
+##                                       quality      
+##  QUALITY_ADDRESS_RANGE_INTERPOLATION      :170719  
+##  gpsvisualizer                            : 31084  
+##  QUALITY_CITY_CENTROID                    : 20473  
+##  QUALITY_EXACT_PARCEL_CENTROID            : 17208  
+##  QUALITY_ZIP_CODE_TABULATION_AREA_CENTROID: 14980  
+##  (Other)                                  :  3726  
+##  NA's                                     : 23316  
+##               match              wk            
+##  Exact           :197044   Min.   :2003-04-21  
+##  Relaxed         : 30570   1st Qu.:2004-02-01  
+##  Relaxed; Soundex: 23338   Median :2004-10-18  
+##  Soundex         :  2573   Mean   :2004-10-26  
+##  1               :  2244   3rd Qu.:2005-07-18  
+##  (Other)         :  2421   Max.   :2006-05-29  
+##  NA's            : 23316
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 }
 
+\
 \underline{Problems:}
 \begin{enumerate}
-\item Place your answer here
-\item Place your answer here
-\item Place your answer here
+\item There are many NA values for some of the variables. For example, there is no zip code 
+for 5 values, no lsqft for 21687 values, no bsqft for 426, no year for 9202 etc. 
+\item The year variable has a minimum of 0 and a maximum of 3894. These are not valid years.
+\item This is more of a subjective critique but I think the variable names should be more descriptive. For example, I do not understand what the bf variable is suppose to be. 
 \end{enumerate}
 
 
@@ -450,8 +586,15 @@ and 6 variables (check it!). \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{chooseVars} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"city"}\hlstd{,} \hlstr{"zip"}\hlstd{,} \hlstr{"price"}\hlstd{,} \hlstr{"br"}\hlstd{,} \hlstr{"bsqft"}\hlstd{,} \hlstr{"year"}\hlstd{)}
+\hlstd{nearCitiesVec} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"Albany"}\hlstd{,} \hlstr{"Alameda"}\hlstd{,} \hlstr{"Berkeley"}\hlstd{,} \hlstr{"Emeryville"}\hlstd{,} \hlstr{"Oakland"}\hlstd{,} \hlstr{"Piedmont"}\hlstd{,} \hlstr{"San Leandro"}\hlstd{)}
+\hlstd{ind} \hlkwb{=} \hlstd{(housing}\hlopt{$}\hlstd{city} \hlopt{%in%} \hlstd{nearCitiesVec)}
+\hlstd{BerkArea} \hlkwb{=} \hlstd{housing[ind,chooseVars]}
+\hlkwd{nrow}\hlstd{(BerkArea)}
 \end{alltt}
+\begin{verbatim}
+## [1] 25151
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -469,8 +612,20 @@ actual numeric value for these quantiles. \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{quantile95P} \hlkwb{=} \hlkwd{quantile}\hlstd{(BerkArea}\hlopt{$}\hlstd{price,} \hlnum{.98}\hlstd{)}
+\hlstd{indQ} \hlkwb{=} \hlstd{BerkArea[}\hlstr{"price"}\hlstd{]} \hlopt{<} \hlstd{quantile95P}
+
+\hlstd{quantile95Q} \hlkwb{=} \hlkwd{quantile}\hlstd{(BerkArea}\hlopt{$}\hlstd{bsqft,} \hlnum{.98}\hlstd{,} \hlkwc{na.rm}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\hlstd{indBs} \hlkwb{=} \hlstd{BerkArea[}\hlstr{"bsqft"}\hlstd{]} \hlopt{<} \hlstd{quantile95Q}
+
+\hlstd{indCom} \hlkwb{=} \hlstd{indQ} \hlopt{&} \hlstd{indBs}
+
+\hlstd{BerkArea}\hlkwb{=}\hlstd{BerkArea[indCom,]}
+\hlkwd{nrow}\hlstd{(BerkArea)}
 \end{alltt}
+\begin{verbatim}
+## [1] 24346
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -484,8 +639,14 @@ and verify that it indeed has been added to the data frame. \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{pricepsqft} \hlkwb{=} \hlstd{BerkArea}\hlopt{$}\hlstd{price} \hlopt{/} \hlstd{BerkArea}\hlopt{$}\hlstd{bsqft}
+\hlstd{BerkArea}\hlopt{$}\hlstd{pricepsqft} \hlkwb{<-} \hlstd{pricepsqft}
+\hlkwd{names}\hlstd{(BerkArea)}
 \end{alltt}
+\begin{verbatim}
+## [1] "city"       "zip"        "price"      "br"        
+## [5] "bsqft"      "year"       "pricepsqft"
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -502,7 +663,11 @@ TRUE and FALSE are represented numerically or how to reassign a different value 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{seven} \hlkwb{<-} \hlstd{BerkArea}\hlopt{$}\hlstd{br} \hlopt{>=} \hlnum{7}
+\hlstd{eight} \hlkwb{<-} \hlstd{BerkArea}\hlopt{$}\hlstd{br} \hlopt{>=} \hlnum{8}
+
+\hlstd{br6} \hlkwb{<-} \hlstd{BerkArea}\hlopt{$}\hlstd{br} \hlopt{-} \hlstd{seven} \hlopt{-} \hlstd{eight}
+\hlstd{BerkArea}\hlopt{$}\hlstd{br6} \hlkwb{<-} \hlstd{br6}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -539,7 +704,7 @@ Numerically quantify (use only 3 decimal digits!) and interpret this feature! HI
 
 \underline{Answer:} \\
 Place your answer here
-
+The relationship between size of house and price per square foot is slightly negative. Also, not surprisingly, the more rooms there are, the bigger the house. Using the correlation function in r outputs a 1.000. This is clearly not correct. Most likely do to something I don't understand or an error. 
 
 \end{enumerate}
 
@@ -574,8 +739,16 @@ Class Child Adult
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{classNotCrew} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"1st"}\hlstd{,} \hlstr{"2nd"}\hlstd{,} \hlstr{"3rd"}\hlstd{)}
+\hlstd{Titanic[classNotCrew,}\hlkwc{Sex} \hlstd{=} \hlstr{"Male"}\hlstd{,,}\hlkwc{Survived} \hlstd{=} \hlstr{"Yes"}\hlstd{]}
 \end{alltt}
+\begin{verbatim}
+##      Age
+## Class Child Adult
+##   1st     5    57
+##   2nd    11    14
+##   3rd    13    75
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -589,8 +762,12 @@ The result should be a vector of length 2. \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{Titanic[}\hlkwc{Class} \hlstd{=} \hlstr{"Crew"}\hlstd{,} \hlkwc{Sex} \hlstd{=} \hlstr{"Female"}\hlstd{,} \hlkwc{Age} \hlstd{=} \hlstr{"Adult"}\hlstd{,]}
 \end{alltt}
+\begin{verbatim}
+##  No Yes 
+##   3  20
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -612,14 +789,22 @@ passengers and crew.} \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlstd{Titanic[,,} \hlkwc{Age} \hlstd{=} \hlstr{"Adult"}\hlstd{,}\hlkwc{Survived}\hlstd{=}\hlstr{"No"}\hlstd{]}
 \end{alltt}
+\begin{verbatim}
+##       Sex
+## Class  Male Female
+##   1st   118      4
+##   2nd   154     13
+##   3rd   387     89
+##   Crew  670      3
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
 \underline{Description:} \\
 Place your answer here
-
+The subgroup is Adults that did not survive. 
 
 \item (4 Points)
 Write an R expression that extracts the following vector from the Titanic data set:
@@ -635,14 +820,18 @@ vector using \verb|as.vector|. \\
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Place your answer here}
+\hlkwd{as.vector}\hlstd{(}\hlkwd{c}\hlstd{(Titanic[}\hlkwc{Class}\hlstd{=}\hlstr{"3rd"}\hlstd{, ,}\hlkwc{Age}\hlstd{=}\hlstr{"Child"}\hlstd{,} \hlkwc{Survived} \hlstd{=} \hlstr{"Yes"}\hlstd{],}
+            \hlstd{Titanic[}\hlkwc{Class}\hlstd{=}\hlstr{"3rd"}\hlstd{, ,}\hlkwc{Age}\hlstd{=}\hlstr{"Adult"}\hlstd{,} \hlkwc{Survived} \hlstd{=} \hlstr{"Yes"}\hlstd{]))}
 \end{alltt}
+\begin{verbatim}
+## [1] 13 14 75 76
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
 \underline{Description:} \\
 Place your answer here
-
+The first first two are male and female children in the third class that survived. The second two are the same but adults.
 
 \end{enumerate}
 
